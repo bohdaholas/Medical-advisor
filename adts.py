@@ -27,10 +27,10 @@ class Symptom:
 @dataclass
 class Disease:
     disease_name: str
-    possible_symptoms: LinkedStack()
+    possible_symptoms: Array
 
 
 class Patient:
     def __init__(self):
-        self.basic_data = Array(10, None)
+        self.basic_data = Array(11, None)
         self.symptoms_data = LinkedStack()
