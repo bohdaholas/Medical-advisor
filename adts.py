@@ -1,6 +1,7 @@
 import json
 from dataclasses import dataclass
-
+from pprint import pprint
+from datastructures import LinkedStack
 
 @dataclass
 class Answers:
@@ -23,13 +24,19 @@ class Symptom:
     question: Question
 
 
+@dataclass
+class Patient:
+    was_analyzed: bool = False
+    patient_symptoms = LinkedStack()
+
+
 class SymptomBD:
     def __init__(self):
-        self.basic_data = []
-        self.symptoms_data = []
-        self.fill_in_data("examples/SymptomsOutput.json")
+        self.basic_data = LinkedStack()
+        self.symptoms_data = LinkedStack()
+        self.fill_in_data()
 
-    def fill_in_data(self, file_path):
+    def fill_in_data(self, file_path="examples/SymptomsOutput.json"):
         with open(file_path) as file:
             symptoms_data = json.load(file)
         for symptom_data in symptoms_data:
@@ -44,6 +51,6 @@ class SymptomBD:
             symptom = Symptom(symptom_name=symptom_data["name"], question=question)
 
             if symptom_data["category"] == "Constitutional and vital signs physical examination":
-                self.basic_data.append(symptom)
+                self.basic_data.push(symptom)
             else:
-                self.symptoms_data.append(symptom)
+                self.symptoms_data.push(symptom)

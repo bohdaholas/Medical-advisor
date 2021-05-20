@@ -108,6 +108,9 @@ class LinkedStack(AbstractStack):
             raise KeyError("The stack is empty.")
         return self._items.data
 
+    def __len__(self):
+        return self._size
+
     # Mutator methods
     def clear(self):
         """Makes self become empty."""
