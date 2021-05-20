@@ -1,20 +1,19 @@
+import json
 from dataclasses import dataclass
-from datastructures import LinkedStack
-from datastructures import Array
 
 
 @dataclass
 class Answers:
-    default: int
+    default_value: int
     choices: dict = None
-    min: int = None
-    max: int = None
+    min_value: int = None
+    max_value: int = None
 
 
 @dataclass
 class Question:
     category: str
-    question: str
+    question_sentence: str
     answers: Answers
 
 
@@ -24,13 +23,27 @@ class Symptom:
     question: Question
 
 
-@dataclass
-class Disease:
-    disease_name: str
-    possible_symptoms: Array
-
-
-class Patient:
+class SymptomBD:
     def __init__(self):
-        self.basic_data = Array(11, None)
-        self.symptoms_data = LinkedStack()
+        self.basic_data = []
+        self.symptoms_data = []
+        self.fill_in_data("examples/SymptomsOutput.json")
+
+    def fill_in_data(self, file_path):
+        with open(file_path) as file:
+            symptoms_data = json.load(file)
+        for symptom_data in symptoms_data:
+
+            if "choices" in symptom_data:
+                choices = {choice["laytext"]: choice["value"] for choice in symptom_data["choices"]}
+                answers = Answers(default_value=symptom_data["default"], choices=choices)
+            else:
+                answers = Answers(default_value=symptom_data["default"], choices={},
+                                  min_value=symptom_data["min"], max_value=symptom_data["max"])
+            question = Question(category=symptom_data["category"], question_sentence=symptom_data["laytext"], answers=answers)
+            symptom = Symptom(symptom_name=symptom_data["name"], question=question)
+
+            if symptom_data["category"] == "Constitutional and vital signs physical examination":
+                self.basic_data.append(symptom)
+            else:
+                self.symptoms_data.append(symptom)

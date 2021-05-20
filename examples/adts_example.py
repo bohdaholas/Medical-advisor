@@ -5,10 +5,10 @@ from pprint import pprint
 
 @dataclass
 class Answers:
-    default: int
+    default_value: int
     choices: dict = None
-    min: int = None
-    max: int = None
+    min_value: int = None
+    max_value: int = None
 
 
 @dataclass
@@ -24,13 +24,7 @@ class Symptom:
     question: Question
 
 
-@dataclass
-class Disease:
-    disease_name: str
-    possible_symptoms: list
-
-
-class Patient:
+class SymptomBD:
     def __init__(self):
         self.basic_data = []
         self.symptoms_data = []
@@ -39,19 +33,22 @@ class Patient:
 if __name__ == '__main__':
     with open("SymptomsOutput.json") as file:
         symptoms_data = json.load(file)
-    patient = Patient()
+    symptom_bd = SymptomBD()
     for symptom_data in symptoms_data:
 
         if "choices" in symptom_data:
             choices = {choice["laytext"]: choice["value"] for choice in symptom_data["choices"]}
-            answers = Answers(symptom_data["default"], choices)
+            answers = Answers(default_value=symptom_data["default"], choices=choices)
         else:
-            answers = Answers(symptom_data["default"], {}, symptom_data["min"], symptom_data["max"])
-        question = Question(symptom_data["category"], symptom_data["laytext"], answers)
-        symptom = Symptom(symptom_data["name"], question)
+            answers = Answers(default_value=symptom_data["default"], choices={},
+                              min_value=symptom_data["min"], max_value=symptom_data["max"])
+        question = Question(category=symptom_data["category"], question=symptom_data["laytext"], answers=answers)
+        symptom = Symptom(symptom_name=symptom_data["name"], question=question)
 
         if symptom_data["category"] == "Constitutional and vital signs physical examination":
-            patient.basic_data.append(symptom)
+            symptom_bd.basic_data.append(symptom)
         else:
-            patient.symptoms_data.append(symptom)
-    pprint(patient.symptoms_data)
+            symptom_bd.symptoms_data.append(symptom)
+    pprint(symptom_bd.basic_data)
+    print("*" * 50)
+    pprint(symptom_bd.symptoms_data)
