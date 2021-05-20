@@ -79,7 +79,7 @@ class MedicalAdvisor:
             return analysis
         return {}
 
-    def get_suggested_specializations(self, number_of_results: int) -> dict:
+    def get_suggested_specializations(self, number_of_results: int) -> list:
         """
         Direct patient to visit certain specialization based on his symptoms
         :param number_of_results: int
@@ -92,7 +92,7 @@ class MedicalAdvisor:
         if response["status"] == "ok":
             suggested_specializations = response["SuggestedSpecializations"]
             return suggested_specializations
-        return {}
+        return []
 
     def get_suggested_tests(self, number_of_results: int) -> list:
         """
@@ -113,13 +113,3 @@ class MedicalAdvisor:
         sorted_suggested_tests = sorted(suggested_tests, key=lambda el: el[-1], reverse=True)[:number_of_results + 1]
         tests = [test[0] for test in sorted_suggested_tests]
         return tests
-
-
-# if __name__ == '__main__':
-#     medical_advisor = MedicalAdvisor()
-#     medical_advisor.init_session()
-#     medical_advisor.accept_terms_of_use()
-#     medical_advisor.set_use_of_default_values(True)
-#     print(medical_advisor.analyze(5))
-    # medical_advisor.analyze(5)
-    # print(medical_advisor.get_suggested_specializations(5))

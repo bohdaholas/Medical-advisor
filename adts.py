@@ -1,7 +1,7 @@
 import json
 from dataclasses import dataclass
-from pprint import pprint
 from datastructures import LinkedStack
+
 
 @dataclass
 class Answers:
