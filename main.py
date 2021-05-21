@@ -151,7 +151,6 @@ def analysis_results():
                             bg=white_color, font='Helvetica 18 bold')
     diagnoses_label.pack(pady=(0, 20))
     for diagnose in diagnoses:
-        diagnose = list(diagnose.keys())[0]
         if diagnose == "Patient in immediate life-threatening condition":
             continue
         if diagnose == diagnoses[-1]:
@@ -178,7 +177,7 @@ def show_specializations():
                                  bg=white_color, font='Helvetica 18 bold')
     specialization_label.pack(pady=(0, 20))
     for specialization in specializations:
-        specialization_label = Label(specializations_frame, text=specialization[0], bg=white_color)
+        specialization_label = Label(specializations_frame, text=specialization, bg=white_color)
         specialization_label.pack()
     specializations_frame.pack()
 

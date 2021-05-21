@@ -54,17 +54,7 @@ class MedicalAdvisor:
                         "value": value}
         requests.request("POST", end_point, params=request_data)
 
-    def delete_feature(self, feature_name: str) -> None:
-        """
-        Delete symptom
-        :param feature_name: str
-        """
-        end_point = self.base_url + "/v1/dx/DeleteFeature"
-        request_data = {"SessionID": self.session_id,
-                        "name": feature_name}
-        requests.request("POST", end_point, params=request_data)
-
-    def analyze(self, number_of_results: int) -> dict:
+    def analyze(self, number_of_results: int) -> list:
         """
         List first number_of_results possible diagnosis
         :param number_of_results: int
@@ -76,8 +66,9 @@ class MedicalAdvisor:
         response = requests.get(end_point, request_data).json()
         if response["status"] == "ok":
             analysis = response["Diseases"]
-            return analysis
-        return {}
+            diseases = [list(disease.keys())[0] for disease in analysis]
+            return diseases
+        return []
 
     def get_suggested_specializations(self, number_of_results: int) -> list:
         """
@@ -91,6 +82,7 @@ class MedicalAdvisor:
         response = requests.get(end_point, request_data).json()
         if response["status"] == "ok":
             suggested_specializations = response["SuggestedSpecializations"]
+            suggested_specializations = [specialization[0] for specialization in suggested_specializations]
             return suggested_specializations
         return []
 
