@@ -36,7 +36,7 @@ class SymptomBD:
         self.symptoms_data = LinkedStack()
         self.fill_in_data()
 
-    def fill_in_data(self, file_path="examples/SymptomsOutput.json"):
+    def fill_in_data(self, file_path="SymptomsOutput.json"):
         with open(file_path) as file:
             symptoms_data = json.load(file)
         for symptom_data in symptoms_data:

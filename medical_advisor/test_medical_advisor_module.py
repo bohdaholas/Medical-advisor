@@ -1,5 +1,5 @@
 import unittest
-from medical_advisor_module import MedicalAdvisor
+from medical_advisor.medical_advisor_module import MedicalAdvisor
 
 
 class TestMedicalAdvisor(unittest.TestCase):

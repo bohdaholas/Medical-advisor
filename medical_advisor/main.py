@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
-from adts import *
+from medical_advisor.adts import *
 from medical_advisor_module import *
 
 
@@ -141,7 +141,6 @@ def analysis_results():
     display_app_menu()
     medical_advisor.init_session()
     medical_advisor.accept_terms_of_use()
-    medical_advisor.set_use_of_default_values()
     for patient_symptom in patient.patient_symptoms:
         medical_advisor.add_symptom(patient_symptom[0], patient_symptom[1])
     number_of_results = 6
@@ -150,10 +149,12 @@ def analysis_results():
     diagnoses_label = Label(diagnoses_frame, text="5 Possible diagnoses:", fg=red_color,
                             bg=white_color, font='Helvetica 18 bold')
     diagnoses_label.pack(pady=(0, 20))
+    one_less = False
     for diagnose in diagnoses:
         if diagnose == "Patient in immediate life-threatening condition":
+            one_less = True
             continue
-        if diagnose == diagnoses[-1]:
+        if not one_less and diagnose == diagnoses[-1]:
             break
         result_label = Label(diagnoses_frame, text=diagnose, bg=white_color)
         result_label.pack()
