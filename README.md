@@ -23,7 +23,12 @@ The same situation in medical sphere, so our goal was to make a medical advisor 
 
 
 ## Structure
-All modules are in "medical_advisor" folder
+* adts.py - module for ADT realization
+* datastructures.py - module for data structures (stack) realization 
+* main.py - module for Tkinker graphic interface
+* medical_advisor_module.py - module for working with api
+* test_medical_advisor_module.py - module for testing medical_advisor_module.py
+
 
 
 ## Usage example
