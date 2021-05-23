@@ -66,7 +66,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## Authors
-[Bohdan Holas](https://github.com/bohdaholas)
+[Bohdan Ivashko](https://github.com/bohdaholas)
 
 [Anastasia Kernytska](https://github.com/akerni)
 
